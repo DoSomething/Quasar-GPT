@@ -12,9 +12,8 @@ st.sidebar.info(
     '''This is a web application that allows you to interact with 
        our quasar data warehouse using natural language.
        Enter a **query** in the **text box** and **click Send** to receive 
-       a **response**
-
-       **Note:** This is an experiment, this data is not necessarily correct 😅
+       a **response**.
+       Note: **This is an experiment, this data is not necessarily correct** 😅
        '''
     )
 
