@@ -42,7 +42,7 @@ def submit():
 		with st.spinner(text="Processing..."):
 			query_to_send = str(user_query)
 			if try_to_plot:
-				query_to_send = query_to_send + ' - the resulting table should have two columns, x and y, so that I can plot this as a line chart'
+				query_to_send = query_to_send + " - the resulting table should have two columns, 'x' and 'y', so that I can plot this as a line chart"
 			response = ChatGPT(query_to_send).content
 			sql_query = response
 			if '```sql' in sql_query:
