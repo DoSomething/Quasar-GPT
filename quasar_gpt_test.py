@@ -13,6 +13,8 @@ st.sidebar.info(
        our quasar data warehouse using natural language.
        Enter a **query** in the **text box** and **click Send** to receive 
        a **response**
+
+       **Note:** This is an experiment, this data is not necessarily correct 😅
        '''
     )
 
@@ -56,6 +58,6 @@ def submit():
 	else:
 		st.write("Please enter a question.")
 
-user_query = st.text_input("Enter query here, to exit enter :q", "")
+user_query = st.text_input("Enter query here", "")
 try_to_plot = st.checkbox('Try to Plot?')
 st.button('Send',on_click=submit)
