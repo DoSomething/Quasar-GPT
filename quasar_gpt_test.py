@@ -13,7 +13,7 @@ st.sidebar.info(
        our quasar data warehouse using natural language.
        Enter a **query** in the **text box** and **click Send** to receive 
        a **response**.
-       Note: **This is an experiment, this data is not necessarily correct** 😅
+       Note: **This is an experiment, this data is not necessarily correct** 😅 Also, errors have not yet been handled, so please refresh if you get an error message.
        '''
     )
 
