@@ -3,6 +3,7 @@ import streamlit as st
 import openai
 from sqlalchemy import create_engine
 import pandas as pd
+from pandas.api.types import is_numeric_dtype
 
 engine = create_engine(st.secrets["quasar_readonly_connection_string"])
 
@@ -51,7 +52,10 @@ def submit():
 			df_to_display = get_data(response)
 		st.success("Done!")
 		if 'x' in df_to_display and 'y' in df_to_display:
-			st.line_chart(data=df_to_display, x='x',y='y')
+			if is_numeric_dtype(df_to_display['x']):
+				st.line_chart(data=df_to_display, x='x',y='y')
+			else:
+				st.bar_chart(data=df_to_display, x='x',y='y')
 		return st.dataframe(df_to_display)
 
 	else:
