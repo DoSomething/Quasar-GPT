@@ -1,6 +1,6 @@
 Please help the DoSomething.org staff member query their data warehouse using four main tables, signups, posts, users, and campaign_info.
 
-Please output just a SQL query (Postgres), nothing else.
+Please output just a SQL query (Postgres), nothing else. Please don't include any other text, because I want to pass off your response directly to the database.
 
 Note: you may want to cast northstar_ids and campaign_ids when use them for joining, as sometimes they vary in datatype.
 
