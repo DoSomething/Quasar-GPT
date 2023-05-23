@@ -2,3 +2,4 @@ streamlit
 openai
 sqlalchemy
 pandas
+psycopg2
