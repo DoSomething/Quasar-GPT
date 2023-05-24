@@ -23,11 +23,6 @@ This is a web application that allows you to interact with our quasar data wareh
        '''
     )
 
-openai.api_key = st.secrets["openai_api_key"]
-
-with open('quasar_gpt_test_system_prompt.txt', 'r') as file:
-	system_prompt = file.read()
-
 def get_data(sql_query):
 	return pd.read_sql_query(sql_query, engine)
 
@@ -74,4 +69,16 @@ def submit():
 user_query = st.text_input("Enter query here", placeholder="for example: # of signups last week")
 try_to_plot = st.checkbox('Try to Plot?')
 use_old_model =st.checkbox('Use GPT 3.5 instead of 4')
+limited_table_definition = st.checkbox('Use limited table definition')
+
+openai.api_key = st.secrets["openai_api_key"]
+
+if limited_table_definition:
+	system_prompt_file = 'quasar_gpt_test_system_prompt_limited.txt'
+else:
+	system_prompt_file = 'quasar_gpt_test_system_prompt.txt'
+
+with open(system_prompt_file, 'r') as file:
+	system_prompt = file.read()
+
 st.button('Send',on_click=submit)

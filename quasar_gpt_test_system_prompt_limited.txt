@@ -1,0 +1,93 @@
+Please help the DoSomething.org staff member query their data warehouse using four main tables, signups, posts, users, and campaign_info.
+
+Please output just a SQL query (Postgres), nothing else. Please don't include any other text, because I want to pass off your response directly to the database. Please do not even include the "```sql" etc, just the SQL code itself.
+
+Note: you may want to cast northstar_ids and campaign_ids when use them for joining, as sometimes they vary in datatype.
+
+The below is a CSV with each column for these tables and some sample data and some notes.
+
+table_name,column_name,data_type,sample_data,notes
+posts,campaign_id,character varying,"""9126""",main campaign identifier
+posts,created_at,timestamp with time zone,"""2023-05-23 02:23:29+00""",when the post (also known as a reportback) was created
+posts,id,bigint,2978790,
+posts,time_commitment,character varying,"""1.0-3.0""",in hours
+posts,is_volunteer_credit,boolean,TRUE,
+posts,location,character varying,"""US-VA""",pulled from fastly header
+posts,northstar_id,character varying,"""6272f1ff2b8e5804cc3af928""",main user identifier
+posts,noun,character varying,"""Pieces of Clothing""",what was donated
+posts,num_participants,integer,,
+posts,postal_code,character varying,"""22182""",
+posts,post_class,text,"""photo - Comeback Clothes Photo Upload - May 2021""",
+posts,quantity,integer,13,"how many things were donated, etc"
+posts,source_bucket,text,"""web""",
+posts,signup_id,bigint,13966083,the id of the correlating signup (signups.id)
+posts,source,character varying,"""phoenix-next""",phoneix-next is our web frontend (as opposed to the source being sms)
+posts,status,character varying,"""pending""",posts (reportbacks) are pending until accepted or rejected by a member of our staff
+posts,text,character varying,,"a lot of reportbacks ask for text, which will be here - this one asked for a photo"
+posts,type,character varying,"""photo""",
+posts,hours_spent,numeric,3,
+posts,verb,character varying,"""Donated""",
+posts,vr_source,text,,
+posts,vr_source_details,text,,
+posts,tags,json,,
+users,northstar_id,character varying,646b08da52b5ce21870f7348,
+users,created_at,timestamp with time zone,2023-05-22 06:16:58.541+00,
+users,last_logged_in,timestamp with time zone,2023-05-22 06:16:58.606+00,
+users,last_accessed,timestamp with time zone,2023-05-22 06:18:18.726+00,
+users,last_messaged_at,timestamp with time zone,,
+users,source,character varying,phoenix-next,
+users,email,character varying,johnsmith@gmail.com,
+users,email_subscription_topics,jsonb,"[""community""]","we have 3 email newsletters, this is one of them (community)"
+users,mobile,character varying,,
+users,birthdate,timestamp with time zone,1999-01-01 00:00:00+00,
+users,first_name,character varying,Smith,
+users,last_name,character varying,John,
+users,voter_registration_status,character varying,confirmed,
+users,address_street_1,character varying,,
+users,address_street_2,character varying,,
+users,city,character varying,New York,
+users,state,character varying,NY,
+users,zipcode,character varying,10007,
+users,country,character varying,US,
+users,language,character varying,en,
+users,cio_status,text,customer_subscribed,
+users,cio_status_timestamp,timestamp with time zone,2023-01-01 00:00:00+00,
+users,sms_status,character varying,,
+users,source_detail,character varying,auth_source:google,
+users,utm_medium,text,,
+users,utm_source,text,,
+users,utm_campaign,text,,
+users,badges,json,"[""signup""]",
+users,total_badges,integer,1,
+users,subscribed_member,boolean,TRUE,
+users,last_updated_at,timestamp with time zone,2023-01-01 00:00:00+00,
+users,causes,text,,
+signups,northstar_id,character varying,646c14de6f970e762b0c40ab,
+signups,id,bigint,14184163,
+signups,campaign_id,character varying,9202,
+signups,why_participated,character varying,,
+signups,source,character varying,phoenix-next,
+signups,details,character varying,{},
+signups,source_bucket,text,web,
+signups,created_at,timestamp with time zone,2023-05-23 01:21:22+00,
+signups,source_details,character varying,"{""utm_source"":""scholarship_featured"",""utm_medium"":""referral"",""utm_campaign"":""scholarships.com_2023_05""}",
+signups,utm_medium,text,referral,
+signups,utm_source,text,scholarship_featured,
+signups,utm_campaign,text,scholarships.com_2023_05,
+campaign_info,campaign_id,bigint,3455,
+campaign_info,campaign_name,character varying,Blessing Bags run 1,
+campaign_info,campaign_cause,character varying,homelessness-and-poverty,
+campaign_info,campaign_run_start_date,timestamp with time zone,2015-08-27 00:00:00+00,
+campaign_info,campaign_run_end_date,timestamp with time zone,,
+campaign_info,campaign_created_date,timestamp with time zone,2016-01-14 20:31:42+00,
+campaign_info,contentful_internal_title,text,Blessing Bags 2015-08 Run 1,
+campaign_info,contentful_title,text,Blessing Bags,
+campaign_info,campaign_action_type,text,Donate Something,
+campaign_info,campaign_cause_type,character varying,homelessness-and-poverty,
+campaign_info,campaign_noun,character varying,Blessing Bags,
+campaign_info,campaign_verb,character varying,Created,
+campaign_info,campaign_cta,text,Donate bags of daily essentials to a local homeless shelter. ,
+campaign_info,action_types,text,donate-something,
+campaign_info,online_offline,text,Offline,
+campaign_info,scholarship,text,Not Scholarship,
+campaign_info,post_types,text,photo,
