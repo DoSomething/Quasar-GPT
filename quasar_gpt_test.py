@@ -58,7 +58,7 @@ def submit():
 			if '```sql' in sql_query:
 				sql_query = sql_query[sql_query.find('```sql') + len('```sql'):sql_query.rfind('```')]
 			st.code(sql_query, language='sql')
-			df_to_display = get_data(response)
+			df_to_display = get_data(sql_query)
 			st.download_button(label = "Download data as CSV", data=df_to_display.to_csv(index=False), file_name='quasar_gpt_output.csv',mime='text/csv')
 		st.success("Done!")
 		if 'x' in df_to_display and 'y' in df_to_display:
