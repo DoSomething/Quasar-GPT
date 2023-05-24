@@ -10,11 +10,15 @@ engine = create_engine(st.secrets["quasar_readonly_connection_string"])
 st.title("Quasar GPT")
 st.sidebar.header("Instructions")
 st.sidebar.info(
-    '''This is a web application that allows you to interact with 
-       our quasar data warehouse using natural language.
-       Enter a **query** in the **text box** and **click Send** to receive 
-       a **response**.
-       Note: **This is an experiment, this data is not necessarily correct** 😅 Also, errors have not yet been handled, so please refresh if you get an error message.
+    '''
+This is a web application that allows you to interact with our quasar data warehouse using natural language. 
+
+- Enter a **query** in the **text box** and **click Send** to receive 
+       a **response**. 
+- Note: **This is an experiment, this data is not necessarily correct** 😅 
+- Also, errors have not yet been handled, so please refresh if you get an error message. 
+- If you're experiencing an error that prevents even the output of the SQL query, please try clicking 'Use GPT 3.5 instead of 4' as GPT-4 is often overloaded with other requests. 
+	-	Note that this will decrease the quality of the response somewhat, as GPT 3.5 is not quite as powerful.
        '''
     )
 
@@ -27,8 +31,12 @@ def get_data(sql_query):
 	return pd.read_sql_query(sql_query, engine)
 
 def ChatGPT(user_query):
+	if use_old_model: 
+		model_to_use = 'gpt-3.5-turbo'
+	else: 
+		model_to_use = 'gpt-4'
 	completion = openai.ChatCompletion.create(
-	  model="gpt-4",
+	  model=model_to_use,
 	  messages=[
 	  	 {"role": "system", "content": system_prompt},
 	    {"role": "user", "content": user_query}
@@ -64,4 +72,5 @@ def submit():
 
 user_query = st.text_input("Enter query here", "")
 try_to_plot = st.checkbox('Try to Plot?')
+use_old_model =st.checkbox('Use GPT 3.5 instead of 4')
 st.button('Send',on_click=submit)
