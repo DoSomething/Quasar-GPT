@@ -16,6 +16,7 @@ This is a web application that allows you to interact with our quasar data wareh
 - Enter a **query** in the **text box** and **click Send** to receive 
        a **response**. 
 - Note: **This is an experiment, this data is not necessarily correct** 😅 
+- If you want a plot output, try to structure your query such that it lends itself to being plotted. For example, '# of signups last week' will logically output just one number, but '# of signups per day last week' would be a good bar chart candidate. Remember to click 'Try to Plot?' if you want it to attempt to plot the response. 
 - Also, errors have not yet been handled, so please refresh if you get an error message. 
 - If you're experiencing an error that prevents even the output of the SQL query, please try clicking 'Use GPT 3.5 instead of 4' as GPT-4 is often overloaded with other requests. 
 	-	Note that this will decrease the quality of the response somewhat, as GPT 3.5 is not quite as powerful.
@@ -70,7 +71,7 @@ def submit():
 	else:
 		st.write("Please enter a question.")
 
-user_query = st.text_input("Enter query here", "")
+user_query = st.text_input("Enter query here", placeholder="for example: # of signups last week")
 try_to_plot = st.checkbox('Try to Plot?')
 use_old_model =st.checkbox('Use GPT 3.5 instead of 4')
 st.button('Send',on_click=submit)
