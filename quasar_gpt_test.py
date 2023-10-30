@@ -1,11 +1,12 @@
 # Importing required packages
 import streamlit as st
 import openai
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import pandas as pd
 from pandas.api.types import is_numeric_dtype
 
 engine = create_engine(st.secrets["quasar_readonly_connection_string"])
+conn = engine.connect()
 
 st.title("Quasar GPT")
 st.sidebar.header("Instructions")
@@ -29,7 +30,7 @@ with open('quasar_gpt_test_system_prompt.txt', 'r') as file:
 	system_prompt = file.read()
 
 def get_data(sql_query):
-	return pd.read_sql_query(sql_query, engine)
+	return pd.read_sql_query(text(sql_query), conn)
 
 def ChatGPT(user_query):
 	if use_old_model: 
